@@ -5,21 +5,13 @@ import ImageUploader from "@/components/ImageUploader";
 import OutfitInput from "@/components/OutfitInput";
 import GenerateButton from "@/components/GenerateButton";
 import GeneratedGallery from "@/components/GeneratedGallery";
+import { useOutfitGeneration } from "@/hooks/useOutfitGeneration";
 import { toast } from "sonner";
-
-const defaultImages = [
-  { id: "front", label: "Front View", description: "Full-body, facing forward", url: null },
-  { id: "left", label: "Left View", description: "90° left side profile", url: null },
-  { id: "right", label: "Right View", description: "90° right side profile", url: null },
-  { id: "back", label: "Back View", description: "Facing backward", url: null },
-  { id: "outfit", label: "Outfit Only", description: "Transparent background", url: null },
-];
 
 const Index = () => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [outfitDescription, setOutfitDescription] = useState("");
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedImages, setGeneratedImages] = useState(defaultImages);
+  const { isGenerating, generatedImages, generateAllViews, resetImages } = useOutfitGeneration();
 
   const handleGenerate = async () => {
     if (!uploadedImage) {
@@ -31,21 +23,12 @@ const Index = () => {
       return;
     }
 
-    setIsGenerating(true);
-    toast.info("Starting AI generation...");
-
-    // Simulate AI generation (replace with actual API call)
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
-    // For demo purposes, show placeholder results
-    toast.success("Generation complete! Connect Cloud for real AI generation.");
-    
-    setIsGenerating(false);
+    await generateAllViews(uploadedImage, outfitDescription);
   };
 
   const handleClearImage = () => {
     setUploadedImage(null);
-    setGeneratedImages(defaultImages);
+    resetImages();
   };
 
   const isReadyToGenerate = uploadedImage && outfitDescription.trim().length > 0;
