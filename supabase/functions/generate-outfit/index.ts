@@ -115,7 +115,7 @@ Generate a photorealistic, commercially-usable fashion visualization with exact 
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash-image-preview",
+        model: "google/gemini-3-pro-image-preview",
         messages: [
           { role: "system", content: systemPrompt },
           {
@@ -168,8 +168,34 @@ Generate a photorealistic, commercially-usable fashion visualization with exact 
       console.log("=================================");
     }
 
-    const generatedImage = data.choices?.[0]?.message?.images?.[0]?.image_url?.url;
-    const textResponse = data.choices?.[0]?.message?.content;
+    // Parse image from different possible response structures
+    const messageContent = data.choices?.[0]?.message?.content;
+    let generatedImage: string | null = null;
+    let textResponse: string | null = null;
+
+    // Handle array content (multimodal response)
+    if (Array.isArray(messageContent)) {
+      for (const part of messageContent) {
+        if (part.type === "image_url" && part.image_url?.url) {
+          generatedImage = part.image_url.url;
+        } else if (part.type === "image" && part.image?.url) {
+          generatedImage = part.image.url;
+        } else if (part.type === "text") {
+          textResponse = part.text;
+        }
+      }
+    } else if (typeof messageContent === "string") {
+      textResponse = messageContent;
+    }
+
+    // Also check for images in dedicated field
+    if (!generatedImage && data.choices?.[0]?.message?.images?.[0]) {
+      const imageData = data.choices[0].message.images[0];
+      generatedImage = imageData.image_url?.url || imageData.url || imageData;
+    }
+
+    // Log the response structure for debugging
+    console.log("Response structure:", JSON.stringify(data.choices?.[0]?.message, null, 2).substring(0, 500));
 
     if (!generatedImage) {
       console.error("No image generated in response");
