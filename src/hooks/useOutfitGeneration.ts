@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { supabase } from "@/integrations/supabase/client";
+
 import { toast } from "sonner";
 
 export interface GeneratedImage {
@@ -7,17 +7,18 @@ export interface GeneratedImage {
   label: string;
   description: string;
   url: string | null;
+  date?: string;
+  viewType?: string;
 }
 
 const defaultImages: GeneratedImage[] = [
   { id: "front", label: "Front View", description: "Full-body, facing forward", url: null },
   { id: "left", label: "Left View", description: "90° left side profile", url: null },
-  { id: "right", label: "Right View", description: "90° right side profile", url: null },
   { id: "back", label: "Back View", description: "Facing backward", url: null },
   { id: "outfit", label: "Outfit Only", description: "Transparent background", url: null },
 ];
 
-type ViewType = "front" | "left" | "right" | "back" | "outfit";
+type ViewType = "front" | "left" | "back" | "outfit";
 
 export function useOutfitGeneration() {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -30,13 +31,19 @@ export function useOutfitGeneration() {
     viewType: ViewType
   ): Promise<string | null> => {
     try {
-      const { data, error } = await supabase.functions.invoke("generate-outfit", {
-        body: { userImage, outfitDescription, viewType },
+      // Use local backend instead of Supabase
+      const response = await fetch('http://localhost:5000/api/generate-outfit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userImage, outfitDescription, viewType }),
       });
 
-      if (error) {
-        console.error(`Error generating ${viewType}:`, error);
-        throw error;
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to generate');
       }
 
       if (data.error) {
@@ -57,7 +64,7 @@ export function useOutfitGeneration() {
     setIsGenerating(true);
     setGeneratedImages(defaultImages);
 
-    const viewTypes: ViewType[] = ["front", "left", "right", "back", "outfit"];
+    const viewTypes: ViewType[] = ["front", "left", "back", "outfit"];
 
     for (const viewType of viewTypes) {
       setCurrentView(viewType);

@@ -5,7 +5,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-center md:text-left">
             <p className="text-sm text-muted-foreground">
-              © 2024 AtelierAI. Powered by advanced AI fashion technology.
+              © 2026 AtelierAI. Powered by advanced AI fashion technology.
             </p>
           </div>
           <div className="flex items-center gap-6 text-sm text-muted-foreground">

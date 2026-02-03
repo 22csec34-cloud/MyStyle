@@ -6,70 +6,71 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 5%;
+    /* Light Luxury Purple Theme */
+    --background: 270 50% 98%; /* Very light lavender/off-white */
+    --foreground: 270 40% 15%; /* Deep rich purple/charcoal */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
+    --card-foreground: 270 40% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
+    --popover-foreground: 270 40% 15%;
 
-    --primary: 0 0% 8%;
+    --primary: 270 50% 45%; /* Elegant purple */
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 10%;
+    --secondary: 270 30% 94%; /* Soft lavender */
+    --secondary-foreground: 270 50% 20%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 270 20% 96%;
+    --muted-foreground: 270 10% 50%;
 
-    --accent: 38 70% 50%;
+    --accent: 38 70% 50%; /* Gold accent remains for luxury feel */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 38 70% 50%;
+    --border: 270 20% 90%;
+    --input: 270 20% 90%;
+    --ring: 270 50% 45%;
 
-    --radius: 0.25rem;
+    --radius: 0.5rem; /* Slightly softer rounded corners */
 
     /* Custom luxury tokens */
     --gold: 38 70% 50%;
     --gold-light: 38 60% 70%;
     --gold-dark: 38 80% 35%;
     
-    --surface-elevated: 0 0% 99%;
-    --surface-sunken: 0 0% 97%;
+    --surface-elevated: 270 30% 99%;
+    --surface-sunken: 270 20% 96%;
     
-    --text-primary: 0 0% 5%;
-    --text-secondary: 0 0% 35%;
-    --text-muted: 0 0% 55%;
+    --text-primary: 270 40% 15%;
+    --text-secondary: 270 20% 40%;
+    --text-muted: 270 10% 60%;
     
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-sans: 'Inter', system-ui, sans-serif;
 
     /* Gradients */
     --gradient-gold: linear-gradient(135deg, hsl(38 70% 50%), hsl(45 80% 60%));
-    --gradient-dark: linear-gradient(180deg, hsl(0 0% 8%), hsl(0 0% 3%));
-    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 97%));
+    --gradient-dark: linear-gradient(180deg, hsl(270 40% 15%), hsl(270 40% 10%));
+    --gradient-subtle: linear-gradient(180deg, hsl(270 50% 99%), hsl(270 30% 96%));
     
     /* Shadows */
-    --shadow-sm: 0 1px 2px hsl(0 0% 0% / 0.05);
-    --shadow-md: 0 4px 12px hsl(0 0% 0% / 0.08);
-    --shadow-lg: 0 12px 40px hsl(0 0% 0% / 0.12);
+    --shadow-sm: 0 1px 2px hsl(270 40% 15% / 0.05);
+    --shadow-md: 0 4px 12px hsl(270 40% 15% / 0.08);
+    --shadow-lg: 0 12px 40px hsl(270 40% 15% / 0.12);
     --shadow-gold: 0 4px 20px hsl(38 70% 50% / 0.25);
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-background: 270 50% 98%;
+    --sidebar-foreground: 270 40% 15%;
+    --sidebar-primary: 270 50% 45%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 270 30% 94%;
+    --sidebar-accent-foreground: 270 50% 20%;
+    --sidebar-border: 270 20% 90%;
+    --sidebar-ring: 270 50% 45%;
   }
 
   .dark {
